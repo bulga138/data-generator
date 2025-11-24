@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional Data Generator - Generate valid test data for multiple countries with real validation algorithms.">
+    <title data-i18n="app.title">Data Generator - Professional Test Data Creation</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230d6efd%22/><path d=%22M50 85 C20 70 15 35 15 25 L50 10 L85 25 C85 35 80 70 50 85 Z%22 fill=%22white%22/><path d=%22M35 45 L45 55 L65 35%22 stroke=%22%230d6efd%22 stroke-width=%228%22 fill=%22none%22 stroke-linecap=%22round%22/></svg>">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="light-mode">
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link" data-i18n="aria.skipToMain">Skip to main content</a>
+
+    <!-- Theme Switcher -->
+    <div class="theme-toggle" id="themeToggle">
+        <button class="btn" 
+                aria-label="Change theme" 
+                aria-haspopup="true"
+                aria-expanded="false"
+                data-i18n-aria="aria.themeToggle">
+            <i class="fas fa-palette"></i>
+        </button>
+        <div class="theme-menu" id="themeMenu" role="menu">
+            <button role="menuitem" data-theme="light">
+                <i class="fas fa-sun"></i> 
+                <span data-i18n="themes.light">Light</span>
+            </button>
+            <button role="menuitem" data-theme="dark">
+                <i class="fas fa-moon"></i> 
+                <span data-i18n="themes.dark">Dark</span>
+            </button>
+            <button role="menuitem" data-theme="colorblind">
+                <i class="fas fa-eye"></i> 
+                <span data-i18n="themes.colorblind">Colorblind-Friendly</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Language Switcher -->
+    <div class="language-toggle" id="languageToggle">
+        <button class="btn" 
+                aria-label="Change language" 
+                aria-haspopup="true"
+                aria-expanded="false"
+                data-i18n-aria="aria.languageToggle">
+            <i class="fas fa-globe"></i>
+            <span id="currentLang">EN</span>
+        </button>
+        <div class="language-menu" id="languageMenu" role="menu">
+            <button role="menuitem" data-lang="en">🇬🇧 English</button>
+            <button role="menuitem" data-lang="es">🇪🇸 Español</button>
+            <button role="menuitem" data-lang="fr">🇫🇷 Français</button>
+            <button role="menuitem" data-lang="de">🇩🇪 Deutsch</button>
+            <button role="menuitem" data-lang="pt">🇵🇹 Português</button>
+            <button role="menuitem" data-lang="zh">🇨🇳 中文</button>
+        </div>
+    </div>
+
+    <main id="main-content" role="main">
+        <div class="container">
+            <header class="header">
+                <h1 data-i18n="app.title"><b>Data Generator</b></h1>
+                <p class="lead" data-i18n="app.subtitle">Professional Test Data with Real Validation</p>
+            </header>
+
+            <div class="generator-container">
+                <!-- Configuration Section -->
+                <nav class="form-section" aria-label="Data configuration" data-i18n-aria="aria.configNav">
+                    <div class="config-scroll-area">
+                    <h3 class="mb-4">
+                        <i class="fas fa-cog me-2"></i>
+                        <span data-i18n="config.title">Configuration</span>
+                    </h3>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="countrySelect" class="form-label">
+                                <b data-i18n="config.country">Country</b>
+                            </label>
+                            <select class="form-select" id="countrySelect" aria-label="Select country">
+                                <!-- Will be populated by JavaScript in alphabetical order -->
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="quantityInput" class="form-label">
+                                <b data-i18n="config.quantity">Quantity</b>
+                            </label>
+                            <input type="number" class="form-control" id="quantityInput" 
+                                   min="1" max="10000" value="1"
+                                   aria-label="Number of records to generate"
+                                   aria-describedby="quantityHelp">
+                            <div class="form-text" id="quantityHelp" data-i18n="config.quantityHelp">Generate 1 - 10,000 records</div>
+                        </div>
+                    </div>
+
+                    <!-- Category Tabs -->
+                    <div class="category-tabs">
+                        <label class="form-label">
+                            <b data-i18n="config.categories">Data Categories</b>
+                        </label>
+                        <ul class="nav nav-pills" id="categoryTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="all-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#all-pane" type="button" role="tab"
+                                        aria-controls="all-pane" aria-selected="true">
+                                    <i class="fas fa-th me-1"></i>
+                                    <span data-i18n="categories.all">All</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="id-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#id-pane" type="button" role="tab"
+                                        aria-controls="id-pane" aria-selected="false">
+                                    <i class="fas fa-id-card me-1"></i>
+                                    <span data-i18n="categories.id">ID</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="finance-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#finance-pane" type="button" role="tab"
+                                        aria-controls="finance-pane" aria-selected="false">
+                                    <i class="fas fa-credit-card me-1"></i>
+                                    <span data-i18n="categories.finance">Finance</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#contact-pane" type="button" role="tab"
+                                        aria-controls="contact-pane" aria-selected="false">
+                                    <i class="fas fa-phone me-1"></i>
+                                    <span data-i18n="categories.contact">Contact</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="internet-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#internet-pane" type="button" role="tab"
+                                        aria-controls="internet-pane" aria-selected="false">
+                                    <i class="fas fa-envelope me-1"></i>
+                                    <span data-i18n="categories.internet">Internet</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content" id="categoryTabContent">
+                        <!-- All Tab -->
+                        <div class="tab-pane fade show active" id="all-pane" role="tabpanel" aria-labelledby="all-tab">
+                            <div class="field-group all-pane-grid">
+                                <div class="grid-column">
+                                    <h6 class="mb-3">
+                                        <i class="fas fa-id-card me-2"></i>
+                                        <span data-i18n="categoryTitles.identity">Identity Documents</span>
+                                    </h6>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input field-checkbox" type="checkbox" 
+                                               id="checkName_all" data-field="name" checked>
+                                        <label class="form-check-label" for="checkName_all" data-i18n="fields.name">
+                                            Full Name
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input field-checkbox" type="checkbox" 
+                                               id="checkNationalID_all" data-field="nationalId" checked>
+                                        <label class="form-check-label" for="checkNationalID_all" data-i18n="fields.nationalId">
+                                            National ID / SSN
+                                        </label>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input field-checkbox" type="checkbox" 
+                                               id="checkPassport_all" data-field="passport">
+                                        <label class="form-check-label" for="checkPassport_all" data-i18n="fields.passport">
+                                            Passport Number
+                                        </label>
+                                    </div>
+
+                                    <h6 class="mb-3">
+                                        <i class="fas fa-credit-card me-2"></i>
+                                        <span data-i18n="categoryTitles.financial">Financial Data</span>
+                                    </h6>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input field-checkbox" type="checkbox" 
+                                               id="checkCreditCard_all" data-field="creditCard" checked>
+                                        <label class="form-check-label" for="checkCreditCard_all" data-i18n="fields.creditCard">
+                                            Credit Card
+                                        </label>
+                                    </div>
+                                    <div class="mb-3" id="cardTypeContainer_all" style="margin-left: 1.5rem; display: none;">
+                                        <label class="form-label small">
+                                            <b data-i18n="fields.cardType">Card Type</b>
+                                        </label>
+                                        <select class="form-select form-select-sm" id="cardTypeSelect_all" aria-label="Select credit card type">
+                                            <option value="random" data-i18n="cardTypes.random">Random</option>
+                                            <option value="visa" data-i18n="cardTypes.visa">Visa</option>
+                                            <option value="mastercard" data-i18n="cardTypes.mastercard">Mastercard</option>
+                                            <option value="amex" data-i18n="cardTypes.amex">American Express</option>
+                                            <option value="discover" data-i18n="cardTypes.discover">Discover</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-check mb-3">
+                                        <input class="form-check-input field-checkbox" type="checkbox" 
+                                               id="checkBankAccount_all" data-field="bankAccount">
+                                        <label class="form-check-label" for="checkBankAccount_all" data-i18n="fields.bankAccount">
+                                            Bank Account / IBAN
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="grid-column">
+                                    <h6 class="mb-3">
+                                        <i class="fas fa-phone me-2"></i>
+                                        <span data-i18n="categoryTitles.contactInfo">Contact Information</span>
+                                    </h6>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input field-checkbox" type="checkbox" 
+                                               id="checkMobile_all" data-field="mobile" checked>
+                                        <label class="form-check-label" for="checkMobile_all" data-i18n="fields.mobile">
+                                            Mobile Phone
+                                        </label>
+                                    </div>
+                                    <!-- <div class="form-check mb-3">
+                                        <input class="form-check-input field-checkbox" type="checkbox" 
+                                               id="checkPostalCode_all" data-field="postalCode">
+                                        <label class="form-check-label" for="checkPostalCode_all" data-i18n="fields.postalCode">
+                                            Postal Code
+                                        </label>
+                                    </div> -->
+
+                                    <h6 class="mb-3">
+                                        <i class="fas fa-envelope me-2"></i>
+                                        <span data-i18n="categoryTitles.internetData">Internet Data</span>
+                                    </h6>
+                                    <div class="form-check">
+                                        <input class="form-check-input field-checkbox" type="checkbox" 
+                                               id="checkEmail_all" data-field="email" checked>
+                                        <label class="form-check-label" for="checkEmail_all" data-i18n="fields.email">
+                                            Email Address
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ID Tab -->
+                        <div class="tab-pane fade" id="id-pane" role="tabpanel" aria-labelledby="id-tab">
+                            <div class="field-group">
+                                <h6 class="mb-3">
+                                    <i class="fas fa-id-card me-2"></i>
+                                    <span data-i18n="categoryTitles.identity">Identity Documents</span>
+                                </h6>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input field-checkbox" type="checkbox" 
+                                           id="checkName" data-field="name" checked>
+                                    <label class="form-check-label" for="checkName" data-i18n="fields.name">
+                                        Full Name
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input field-checkbox" type="checkbox" 
+                                           id="checkNationalID" data-field="nationalId" checked>
+                                    <label class="form-check-label" for="checkNationalID" data-i18n="fields.nationalId">
+                                        National ID / SSN
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input field-checkbox" type="checkbox" 
+                                           id="checkPassport" data-field="passport">
+                                    <label class="form-check-label" for="checkPassport" data-i18n="fields.passport">
+                                        Passport Number
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Finance Tab -->
+                        <div class="tab-pane fade" id="finance-pane" role="tabpanel" aria-labelledby="finance-tab">
+                            <div class="field-group">
+                                <h6 class="mb-3">
+                                    <i class="fas fa-credit-card me-2"></i>
+                                    <span data-i18n="categoryTitles.financial">Financial Data</span>
+                                </h6>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input field-checkbox" type="checkbox" 
+                                           id="checkCreditCard" data-field="creditCard" checked>
+                                    <label class="form-check-label" for="checkCreditCard" data-i18n="fields.creditCard">
+                                        Credit Card
+                                    </label>
+                                </div>
+                                <div class="mb-3" id="cardTypeContainer" style="margin-left: 1.5rem; display: none;">
+                                    <label class="form-label small">
+                                        <b data-i18n="fields.cardType">Card Type</b>
+                                    </label>
+                                    <select class="form-select form-select-sm" id="cardTypeSelect" aria-label="Select credit card type">
+                                        <option value="random" data-i18n="cardTypes.random">Random</option>
+                                        <option value="visa" data-i18n="cardTypes.visa">Visa</option>
+                                        <option value="mastercard" data-i18n="cardTypes.mastercard">Mastercard</option>
+                                        <option value="amex" data-i18n="cardTypes.amex">American Express</option>
+                                        <option value="discover" data-i18n="cardTypes.discover">Discover</option>
+                                    </select>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input field-checkbox" type="checkbox" 
+                                           id="checkBankAccount" data-field="bankAccount">
+                                    <label class="form-check-label" for="checkBankAccount" data-i18n="fields.bankAccount">
+                                        Bank Account / IBAN
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Tab -->
+                        <div class="tab-pane fade" id="contact-pane" role="tabpanel" aria-labelledby="contact-tab">
+                            <div class="field-group">
+                                <h6 class="mb-3">
+                                    <i class="fas fa-phone me-2"></i>
+                                    <span data-i18n="categoryTitles.contactInfo">Contact Information</span>
+                                </h6>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input field-checkbox" type="checkbox" 
+                                           id="checkMobile" data-field="mobile" checked>
+                                    <label class="form-check-label" for="checkMobile" data-i18n="fields.mobile">
+                                        Mobile Phone
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input field-checkbox" type="checkbox" 
+                                           id="checkPostalCode" data-field="postalCode">
+                                    <label class="form-check-label" for="checkPostalCode" data-i18n="fields.postalCode">
+                                        Postal Code
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Internet Tab -->
+                        <div class="tab-pane fade" id="internet-pane" role="tabpanel" aria-labelledby="internet-tab">
+                            <div class="field-group">
+                                <h6 class="mb-3">
+                                    <i class="fas fa-envelope me-2"></i>
+                                    <span data-i18n="categoryTitles.internetData">Internet Data</span>
+                                </h6>
+                                <div class="form-check">
+                                    <input class="form-check-input field-checkbox" type="checkbox" 
+                                           id="checkEmail" data-field="email" checked>
+                                    <label class="form-check-label" for="checkEmail" data-i18n="fields.email">
+                                        Email Address
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+                    <div class="config-footer">
+                        <button type="button" class="btn btn-primary w-100" id="generateBtn"
+                                aria-label="Generate test data"
+                                data-i18n-aria="aria.generateButton">
+                            <i class="fas fa-bolt me-2"></i>
+                            <b data-i18n="actions.generate">Generate Data</b>
+                        </button>
+                    </div>
+
+                    <!-- <div class="info-box">
+                        <h6>
+                            <i class="fas fa-info-circle me-2"></i>
+                            <span data-i18n="info.title">Information</span>
+                        </h6>
+                        <ul class="list-unstyled small mb-0">
+                            <li>
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span data-i18n="info.validation">All data passes validation algorithms</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-shield-alt text-primary me-2"></i>
+                                <span data-i18n="info.testing">For testing purposes only</span>
+                            </li>
+                            <li>
+                                <i class="fas fa-code me-2"></i>
+                                <span data-i18n="info.clientSide">Client-side processing</span>
+                            </li>
+                        </ul>
+                    </div> -->
+                </nav>
+
+                <!-- Results Section -->
+                <section class="result-section" aria-label="Generated data output" data-i18n-aria="aria.outputSection">
+                    <div class="result-scroll-area">
+                        <ul class="nav output-tabs mb-3" id="outputTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="table-output-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#table-output-pane" type="button" role="tab"
+                                        aria-controls="table-output-pane" aria-selected="true">
+                                    <i class="fas fa-table me-1"></i>
+                                    <span data-i18n="output.table">Table</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="json-output-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#json-output-pane" type="button" role="tab"
+                                        aria-controls="json-output-pane" aria-selected="false">
+                                    <i class="fas fa-code me-1"></i>
+                                    <span data-i18n="output.json">JSON</span>
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="csv-output-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#csv-output-pane" type="button" role="tab"
+                                        aria-controls="csv-output-pane" aria-selected="false">
+                                    <i class="fas fa-file-csv me-1"></i>
+                                    <span data-i18n="output.csv">CSV</span>
+                                </button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="outputTabContent">
+                            <!-- Table View -->
+                            <div class="tab-pane fade show active" id="table-output-pane" role="tabpanel" aria-labelledby="table-output-tab">
+                                <div class="table-responsive data-table">
+                                    <table class="table table-hover mb-0">
+                                        <thead id="tableHeader">
+                                            <tr>
+                                                <th style="width: 40px;">
+                                                    <i class="fas fa-copy copy-table-btn" style="cursor: pointer;" 
+                                                       title="Copy Table"
+                                                       data-i18n-title="aria.copyTable"
+                                                       role="button"
+                                                       tabindex="0"
+                                                       aria-label="Copy Table"
+                                                       data-i18n-aria="aria.copyTable"></i>
+                                                </th>
+                                                <th>#</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tableBody">
+                                            <tr>
+                                                <td colspan="2" class="text-center text-muted py-5">
+                                                    <span data-i18n="output.noData">No data generated yet</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- JSON View -->
+                            <div class="tab-pane fade" id="json-output-pane" role="tabpanel" aria-labelledby="json-output-tab">
+                                <div class="code-output">
+                                    <i class="fas fa-copy copy-code-btn" 
+                                       id="copyJSONBtn"
+                                       title="Copy JSON"
+                                       data-i18n-title="aria.copyJson"
+                                       role="button"
+                                       tabindex="0"
+                                       aria-label="Copy JSON"
+                                       data-i18n-aria="aria.copyJson"></i>
+                                    <pre id="jsonOutput" style="margin: 0;">[]</pre>
+                                </div>
+                            </div>
+
+                            <!-- CSV View -->
+                            <div class="tab-pane fade" id="csv-output-pane" role="tabpanel" aria-labelledby="csv-output-tab">
+                                <div class="code-output">
+                                    <i class="fas fa-copy copy-code-btn" 
+                                       id="copyCSVBtn"
+                                       title="Copy CSV"
+                                       data-i18n-title="aria.copyCsv"
+                                       role="button"
+                                       tabindex="0"
+                                       aria-label="Copy CSV"
+                                       data-i18n-aria="aria.copyCsv"></i>
+                                    <pre id="csvOutput" style="margin: 0;"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="config-footer action-buttons">
+                        <button type="button" class="btn btn-success" id="downloadJSON"
+                                aria-label="Download as JSON"
+                                data-i18n-aria="aria.downloadJson">
+                            <i class="fas fa-download me-2"></i>
+                            <span data-i18n="output.json">JSON</span>
+                        </button>
+                        <button type="button" class="btn btn-success" id="downloadCSV"
+                                aria-label="Download as CSV"
+                                data-i18n-aria="aria.downloadCsv">
+                            <i class="fas fa-download me-2"></i>
+                            <span data-i18n="output.csv">CSV</span>
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" id="clearDataBtn"
+                                aria-label="Clear all data"
+                                data-i18n-aria="aria.clearData">
+                            <i class="fas fa-trash me-2"></i>
+                            <span data-i18n="actions.clear">Clear</span>
+                        </button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
