@@ -17,6 +17,7 @@ import * as GermanyGen from './generators/germany.js';
 import * as CanadaGen from './generators/canada.js';
 import * as ChinaGen from './generators/china.js';
 import * as AustraliaGen from './generators/australia.js';
+import { ItalyGen } from './generators/italy.js';
 
 // Generator mapping
 const GENERATORS = {
@@ -27,7 +28,8 @@ const GENERATORS = {
     germany: GermanyGen,
     canada: CanadaGen,
     china: ChinaGen,
-    australia: AustraliaGen
+    australia: AustraliaGen,
+    italy: new ItalyGen()
 };
 
 // Application state
@@ -443,6 +445,12 @@ async function generateData(country, quantity, fields) {
                     record.national_id = generator.generateChineseID();
                 } else if (recordCountry === 'australia' && generator.generateTFN) {
                     record.national_id = generator.generateTFN();
+                } else if (recordCountry === 'italy' && generator.generateCodiceFiscale) {
+                    const parts = record.name ? record.name.split(' ') : ['Mario', 'Rossi'];
+                    record.national_id = generator.generateCodiceFiscale({
+                        name: parts[0],
+                        surname: parts.slice(1).join(' ') || 'Rossi'
+                    });
                 } else if (GlobalGen.generateUUID) {
                     record.national_id = GlobalGen.generateUUID();
                 }
