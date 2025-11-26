@@ -81,6 +81,24 @@ export const COUNTRIES = {
         flag: '🇦🇺',
         tld: 'com.au',
         currency: 'AUD'
+    },
+    spain: {
+        name: 'Spain',
+        flag: '🇪🇸',
+        tld: 'es',
+        currency: 'EUR'
+    },
+    ireland: {
+        name: 'Ireland',
+        flag: '🇮🇪',
+        tld: 'ie',
+        currency: 'EUR'
+    },
+    argentina: {
+        name: 'Argentina',
+        flag: '🇦🇷',
+        tld: 'com.ar',
+        currency: 'ARS'
     }
 };
 
@@ -133,7 +151,7 @@ export const FIELD_AVAILABILITY = {
         nationalId: true, // 18-digit ID
         passport: true,
         creditCard: true, // UnionPay
-        bankAccount: false,
+        bankAccount: true,
         mobile: true,
         postalCode: true,
         email: true
@@ -153,7 +171,7 @@ export const FIELD_AVAILABILITY = {
         nationalId: true, // CPF
         passport: true,
         creditCard: true,
-        bankAccount: false,
+        bankAccount: true,
         mobile: true,
         postalCode: true, // CEP
         email: true
@@ -190,20 +208,20 @@ export const FIELD_AVAILABILITY = {
     },
     japan: {
         name: true,
-        nationalId: false,
+        nationalId: true, // My Number
         passport: true,
         creditCard: true,
-        bankAccount: false,
+        bankAccount: true,
         mobile: true,
         postalCode: true,
         email: true
     },
     mexico: {
         name: true,
-        nationalId: false,
+        nationalId: true, // CURP
         passport: true,
         creditCard: true,
-        bankAccount: false,
+        bankAccount: true,
         mobile: true,
         postalCode: true,
         email: true
@@ -224,6 +242,36 @@ export const FIELD_AVAILABILITY = {
         passport: true,
         creditCard: true,
         bankAccount: true, // BSB
+        mobile: true,
+        postalCode: true,
+        email: true
+    },
+    spain: {
+        name: true,
+        nationalId: true, // DNI
+        passport: true,
+        creditCard: true,
+        bankAccount: true, // IBAN
+        mobile: true,
+        postalCode: true,
+        email: true
+    },
+    ireland: {
+        name: true,
+        nationalId: true, // PPSN
+        passport: true,
+        creditCard: true,
+        bankAccount: true, // IBAN
+        mobile: true,
+        postalCode: true, // Eircode
+        email: true
+    },
+    argentina: {
+        name: true,
+        nationalId: true, // CUIT
+        passport: true,
+        creditCard: true,
+        bankAccount: true, // CBU
         mobile: true,
         postalCode: true,
         email: true

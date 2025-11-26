@@ -94,3 +94,15 @@ export function generatePostalCode() {
     
     return code;
 }
+
+/**
+ * Generate Chinese Bank Account
+ * Standard 19-digit card/account number
+ */
+export function generateBankAccount() {
+    let account = '62'; // Common prefix
+    for (let i = 0; i < 17; i++) {
+        account += Math.floor(Math.random() * 10);
+    }
+    return account;
+}

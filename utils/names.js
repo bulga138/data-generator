@@ -50,6 +50,18 @@ const firstNames = {
     global: {
         female: ['Maria', 'Nushi', 'Mohammed', 'Jose', 'Muhammad', 'Mohamed', 'Wei', 'Mohammad', 'Ahmed', 'Yan'],
         male: ['Maria', 'Nushi', 'Mohammed', 'Jose', 'Muhammad', 'Mohamed', 'Wei', 'Mohammad', 'Ahmed', 'Yan']
+    },
+    spain: {
+        female: ['Lucía', 'Sofía', 'Martina', 'María', 'Julia', 'Paula', 'Valeria', 'Daniela', 'Alba', 'Sara'],
+        male: ['Hugo', 'Mateo', 'Martín', 'Lucas', 'Leo', 'Daniel', 'Alejandro', 'Manuel', 'Pablo', 'Álvaro']
+    },
+    ireland: {
+        female: ['Fiadh', 'Grace', 'Emily', 'Sophie', 'Éabha', 'Lucy', 'Mia', 'Ava', 'Lily', 'Ellie'],
+        male: ['Jack', 'Noah', 'James', 'Conor', 'Rían', 'Liam', 'Charlie', 'Daniel', 'Cillian', 'Tadhg']
+    },
+    argentina: {
+        female: ['Sofía', 'María', 'Lucía', 'Catalina', 'Martina', 'Valentina', 'Emma', 'Juana', 'Victoria', 'Mía'],
+        male: ['Juan', 'Benjamín', 'Mateo', 'Bautista', 'Felipe', 'Joaquín', 'Tomás', 'Santiago', 'Santino', 'Lautaro']
     }
 };
 
@@ -66,7 +78,10 @@ const lastNames = {
     india: ['Singh', 'Kumar', 'Sharma', 'Patel', 'Gupta', 'Khan', 'Das', 'Reddy', 'Yadav', 'Mehta'],
     china: ['Wang', 'Li', 'Zhang', 'Liu', 'Chen', 'Yang', 'Huang', 'Zhao', 'Wu', 'Zhou'],
     uk: ['Smith', 'Jones', 'Williams', 'Brown', 'Taylor', 'Wilson', 'Davies', 'Evans', 'Thomas', 'Roberts'],
-    global: ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez']
+    global: ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez'],
+    spain: ['García', 'Rodríguez', 'González', 'Fernández', 'López', 'Martínez', 'Sánchez', 'Pérez', 'Gómez', 'Martín'],
+    ireland: ['Murphy', 'Kelly', 'O\'Brien', 'Ryan', 'Byrne', 'O\'Connor', 'Walsh', 'O\'Sullivan', 'McCarthy', 'Doyle'],
+    argentina: ['González', 'Rodríguez', 'Gómez', 'Fernández', 'López', 'Díaz', 'Martínez', 'Pérez', 'García', 'Sánchez']
 };
 
 /**

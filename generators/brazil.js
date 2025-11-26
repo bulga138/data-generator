@@ -126,5 +126,18 @@ export function generateCNPJ(formatted = true) {
         return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
     }
     
+    
     return cnpj;
+}
+
+/**
+ * Generate Brazilian Bank Account
+ * Format: Agência (4) + Conta (7) + Digit (1)
+ */
+export function generateBankAccount() {
+    const agencia = Math.floor(Math.random() * 9999).toString().padStart(4, '0');
+    const conta = Math.floor(Math.random() * 9999999).toString().padStart(7, '0');
+    const digit = Math.floor(Math.random() * 10);
+    
+    return `${agencia} / ${conta}-${digit}`;
 }

@@ -18,6 +18,13 @@ import * as CanadaGen from './generators/canada.js';
 import * as ChinaGen from './generators/china.js';
 import * as AustraliaGen from './generators/australia.js';
 import { ItalyGen } from './generators/italy.js';
+import { FranceGen } from './generators/france.js';
+import { UKGen } from './generators/uk.js';
+import { JapanGen } from './generators/japan.js';
+import { MexicoGen } from './generators/mexico.js';
+import { SpainGen } from './generators/spain.js';
+import { IrelandGen } from './generators/ireland.js';
+import { ArgentinaGen } from './generators/argentina.js';
 
 // Generator mapping
 const GENERATORS = {
@@ -29,7 +36,14 @@ const GENERATORS = {
     canada: CanadaGen,
     china: ChinaGen,
     australia: AustraliaGen,
-    italy: new ItalyGen()
+    italy: new ItalyGen(),
+    france: new FranceGen(),
+    uk: new UKGen(),
+    japan: new JapanGen(),
+    mexico: new MexicoGen(),
+    spain: new SpainGen(),
+    ireland: new IrelandGen(),
+    argentina: new ArgentinaGen()
 };
 
 // Application state
@@ -279,10 +293,16 @@ function setupLanguageSwitcher() {
  * Populate country dropdown in alphabetical order
  */
 function populateCountryDropdown() {
+    // Save current selection if any
+    const currentSelection = countrySelect.value;
+
+    // Clear existing options
+    countrySelect.innerHTML = '';
+
     // Convert COUNTRIES object to array and sort alphabetically
     const countriesArray = Object.entries(COUNTRIES).map(([code, info]) => ({
         code,
-        name: info.name,
+        name: i18n.t(`countries.${code}`, { defaultValue: info.name }), // Use translation or fallback
         flag: info.flag
     }));
     
@@ -300,7 +320,19 @@ function populateCountryDropdown() {
         option.textContent = `${country.flag} ${country.name}`;
         countrySelect.appendChild(option);
     });
+
+    // Restore selection or default to global
+    if (currentSelection && COUNTRIES[currentSelection]) {
+        countrySelect.value = currentSelection;
+    } else {
+        countrySelect.value = 'global';
+    }
 }
+
+// Listen for language changes to update country names
+i18n.addListener(() => {
+    populateCountryDropdown();
+});
 
 /**
  * Handle country selection change
@@ -451,6 +483,20 @@ async function generateData(country, quantity, fields) {
                         name: parts[0],
                         surname: parts.slice(1).join(' ') || 'Rossi'
                     });
+                } else if (recordCountry === 'france' && generator.generateINSEE) {
+                    record.national_id = generator.generateINSEE();
+                } else if (recordCountry === 'uk' && generator.generateNINO) {
+                    record.national_id = generator.generateNINO();
+                } else if (recordCountry === 'mexico' && generator.generateCURP) {
+                    record.national_id = generator.generateCURP();
+                } else if (recordCountry === 'japan' && generator.generateMyNumber) {
+                    record.national_id = generator.generateMyNumber();
+                } else if (recordCountry === 'spain' && generator.generateDNI) {
+                    record.national_id = generator.generateDNI();
+                } else if (recordCountry === 'ireland' && generator.generatePPSN) {
+                    record.national_id = generator.generatePPSN();
+                } else if (recordCountry === 'argentina' && generator.generateCUIT) {
+                    record.national_id = generator.generateCUIT();
                 } else if (GlobalGen.generateUUID) {
                     record.national_id = GlobalGen.generateUUID();
                 }
@@ -511,6 +557,26 @@ async function generateData(country, quantity, fields) {
                     record.bank_account = generator.generateRoutingNumber();
                 } else if (recordCountry === 'australia' && generator.generateBSB) {
                     record.bank_account = generator.generateBSB();
+                } else if (recordCountry === 'italy' && generator.generateItalianIBAN) {
+                    record.bank_account = generator.generateItalianIBAN();
+                } else if (recordCountry === 'france' && generator.generateFrenchIBAN) {
+                    record.bank_account = generator.generateFrenchIBAN();
+                } else if (recordCountry === 'uk' && generator.generateUKBankAccount) {
+                    record.bank_account = generator.generateUKBankAccount();
+                } else if (recordCountry === 'mexico' && generator.generateCLABE) {
+                    record.bank_account = generator.generateCLABE();
+                } else if (recordCountry === 'japan' && generator.generateBankAccount) {
+                    record.bank_account = generator.generateBankAccount();
+                } else if (recordCountry === 'brazil' && generator.generateBankAccount) {
+                    record.bank_account = generator.generateBankAccount();
+                } else if (recordCountry === 'china' && generator.generateBankAccount) {
+                    record.bank_account = generator.generateBankAccount();
+                } else if (recordCountry === 'spain' && generator.generateIBAN) {
+                    record.bank_account = generator.generateIBAN();
+                } else if (recordCountry === 'ireland' && generator.generateIBAN) {
+                    record.bank_account = generator.generateIBAN();
+                } else if (recordCountry === 'argentina' && generator.generateCBU) {
+                    record.bank_account = generator.generateCBU();
                 }
             } catch (e) {
                 console.warn(`Failed to generate bank account for ${recordCountry}:`, e);
@@ -522,6 +588,8 @@ async function generateData(country, quantity, fields) {
             try {
                 if (recordCountry === 'usa' && generator.generateUSPhone) {
                     record.mobile_phone = generator.generateUSPhone();
+                } else if (recordCountry === 'canada' && generator.generateCanadianPhone) {
+                    record.mobile_phone = generator.generateCanadianPhone();
                 } else if (recordCountry === 'india' && generator.generateIndianPhone) {
                     record.mobile_phone = generator.generateIndianPhone();
                 } else if (recordCountry === 'brazil' && generator.generateBrazilianPhone) {
@@ -536,6 +604,22 @@ async function generateData(country, quantity, fields) {
                     record.mobile_phone = generator.generateChinesePhone();
                 } else if (recordCountry === 'australia' && generator.generateAustralianPhone) {
                     record.mobile_phone = generator.generateAustralianPhone();
+                } else if (recordCountry === 'france' && generator.generateFrenchPhone) {
+                    record.mobile_phone = generator.generateFrenchPhone();
+                } else if (recordCountry === 'uk' && generator.generateUKPhone) {
+                    record.mobile_phone = generator.generateUKPhone();
+                } else if (recordCountry === 'japan' && generator.generateJapanesePhone) {
+                    record.mobile_phone = generator.generateJapanesePhone();
+                } else if (recordCountry === 'mexico' && generator.generateMexicanPhone) {
+                    record.mobile_phone = generator.generateMexicanPhone();
+                } else if (recordCountry === 'italy' && generator.generateItalianPhone) {
+                    record.mobile_phone = generator.generateItalianPhone();
+                } else if (recordCountry === 'spain' && generator.generatePhone) {
+                    record.mobile_phone = generator.generatePhone();
+                } else if (recordCountry === 'ireland' && generator.generatePhone) {
+                    record.mobile_phone = generator.generatePhone();
+                } else if (recordCountry === 'argentina' && generator.generatePhone) {
+                    record.mobile_phone = generator.generatePhone();
                 } else {
                     record.mobile_phone = GlobalGen.generateE164Phone('1', 10);
                 }
@@ -562,6 +646,16 @@ async function generateData(country, quantity, fields) {
                     record.postal_code = generator.generatePostalCode();
                 } else if (recordCountry === 'australia' && generator.generatePostcode) {
                     record.postal_code = generator.generatePostcode();
+                } else if (recordCountry === 'italy' && generator.generateCAP) {
+                    record.postal_code = generator.generateCAP();
+                } else if (recordCountry === 'france' && generator.generatePostalCode) {
+                    record.postal_code = generator.generatePostalCode();
+                } else if (recordCountry === 'uk' && generator.generatePostcode) {
+                    record.postal_code = generator.generatePostcode();
+                } else if (recordCountry === 'japan' && generator.generatePostalCode) {
+                    record.postal_code = generator.generatePostalCode();
+                } else if (recordCountry === 'mexico' && generator.generatePostalCode) {
+                    record.postal_code = generator.generatePostalCode();
                 }
             } catch (e) {
                 console.warn(`Failed to generate postal code for ${recordCountry}:`, e);

@@ -103,6 +103,30 @@ export const translations = {
             light: "Light",
             dark: "Dark",
             colorblind: "Colorblind-Friendly"
+        },
+        menu: {
+            title: "Menu",
+            theme: "Theme",
+            selectTheme: "Select Theme",
+            language: "Language"
+        },
+        countries: {
+            global: "Global",
+            usa: "United States",
+            uk: "United Kingdom",
+            china: "China",
+            india: "India",
+            brazil: "Brazil",
+            germany: "Germany",
+            france: "France",
+            italy: "Italy",
+            japan: "Japan",
+            mexico: "Mexico",
+            canada: "Canada",
+            australia: "Australia",
+            spain: "Spain",
+            ireland: "Ireland",
+            argentina: "Argentina"
         }
     },
     
@@ -205,6 +229,30 @@ export const translations = {
             light: "Claro",
             dark: "Oscuro",
             colorblind: "Amigable para Daltónicos"
+        },
+        menu: {
+            title: "Menú",
+            theme: "Tema",
+            selectTheme: "Seleccionar Tema",
+            language: "Idioma"
+        },
+        countries: {
+            global: "Global",
+            usa: "Estados Unidos",
+            uk: "Reino Unido",
+            china: "China",
+            india: "India",
+            brazil: "Brasil",
+            germany: "Alemania",
+            france: "Francia",
+            italy: "Italia",
+            japan: "Japón",
+            mexico: "México",
+            canada: "Canadá",
+            australia: "Australia",
+            spain: "España",
+            ireland: "Irlanda",
+            argentina: "Argentina"
         }
     },
     
@@ -307,6 +355,30 @@ export const translations = {
             light: "Clair",
             dark: "Sombre",
             colorblind: "Adapté aux Daltoniens"
+        },
+        menu: {
+            title: "Menu",
+            theme: "Thème",
+            selectTheme: "Choisir le Thème",
+            language: "Langue"
+        },
+        countries: {
+            global: "Mondial",
+            usa: "États-Unis",
+            uk: "Royaume-Uni",
+            china: "Chine",
+            india: "Inde",
+            brazil: "Brésil",
+            germany: "Allemagne",
+            france: "France",
+            italy: "Italie",
+            japan: "Japon",
+            mexico: "Mexique",
+            canada: "Canada",
+            australia: "Australie",
+            spain: "Espagne",
+            ireland: "Irlande",
+            argentina: "Argentine"
         }
     },
     
@@ -409,6 +481,30 @@ export const translations = {
             light: "Hell",
             dark: "Dunkel",
             colorblind: "Farbenblindfreundlich"
+        },
+        menu: {
+            title: "Menü",
+            theme: "Thema",
+            selectTheme: "Thema wählen",
+            language: "Sprache"
+        },
+        countries: {
+            global: "Global",
+            usa: "Vereinigte Staaten",
+            uk: "Vereinigtes Königreich",
+            china: "China",
+            india: "Indien",
+            brazil: "Brasilien",
+            germany: "Deutschland",
+            france: "Frankreich",
+            italy: "Italien",
+            japan: "Japan",
+            mexico: "Mexiko",
+            canada: "Kanada",
+            australia: "Australien",
+            spain: "Spanien",
+            ireland: "Irland",
+            argentina: "Argentinien"
         }
     },
     
@@ -511,6 +607,30 @@ export const translations = {
             light: "Claro",
             dark: "Escuro",
             colorblind: "Amigável para Daltônicos"
+        },
+        menu: {
+            title: "Menu",
+            theme: "Tema",
+            selectTheme: "Selecionar Tema",
+            language: "Idioma"
+        },
+        countries: {
+            global: "Global",
+            usa: "Estados Unidos",
+            uk: "Reino Unido",
+            china: "China",
+            india: "Índia",
+            brazil: "Brasil",
+            germany: "Alemanha",
+            france: "França",
+            italy: "Itália",
+            japan: "Japão",
+            mexico: "México",
+            canada: "Canadá",
+            australia: "Austrália",
+            spain: "Espanha",
+            ireland: "Irlanda",
+            argentina: "Argentina"
         }
     },
     
@@ -613,6 +733,30 @@ export const translations = {
             light: "浅色",
             dark: "深色",
             colorblind: "色盲友好"
+        },
+        menu: {
+            title: "菜单",
+            theme: "主题",
+            selectTheme: "选择主题",
+            language: "语言"
+        },
+        countries: {
+            global: "全球",
+            usa: "美国",
+            uk: "英国",
+            china: "中国",
+            india: "印度",
+            brazil: "巴西",
+            germany: "德国",
+            france: "法国",
+            italy: "意大利",
+            japan: "日本",
+            mexico: "墨西哥",
+            canada: "加拿大",
+            australia: "澳大利亚",
+            spain: "西班牙",
+            ireland: "爱尔兰",
+            argentina: "阿根廷"
         }
     }
 };
